@@ -22,6 +22,11 @@ router.get('/:pid', (req, res, next) => {
     const place = PLACES.find(p => {
         return p.id === placeId;
     });
+    if(!place) {
+        return res.status(404).json({
+            message: 'Place not found for the search!',
+        })
+    }
     res.json({
         place,
     });
@@ -32,6 +37,11 @@ router.get('/user/:uid', (req, res, next) => {
     const place = PLACES.find(p => {
         return p.creator === userId;
     });
+    if(!place) {
+        return res.status(404).json({
+            message: 'Place not found for the user!',
+        })
+    }
     res.json({
         place,
     });
