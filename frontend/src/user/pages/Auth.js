@@ -3,6 +3,25 @@ import React, { useContext, useState } from 'react'
 const Auth = () => {
     const auth = useContext(AuthContext);
     const [isLoginMode, setIsLoginMode] = useState(true);
+    //
+
+    const [formState, inputHandler, setFormData] = useForm(
+        {
+            email: {
+                value: '',
+                isValid: false
+            },
+            password: {
+                value: '',
+                isValid: false
+            }
+        },
+        false
+    );
+
+
+
+
     return (
         <Card className="authentication">
             <h2>Login Required</h2>
