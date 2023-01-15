@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react'
+import { useForm } from '../../shared/hooks/FormHook';
+import './Auth.css';
 
 const Auth = () => {
     const auth = useContext(AuthContext);
@@ -18,7 +20,29 @@ const Auth = () => {
         },
         false
     );
-
+    const switchModeHandler = () => {
+        if (!isLoginMode) {
+            setFormData(
+                {
+                    ...formState.inputs,
+                    name: undefined
+                },
+                formState.inputs.email.isValid && formState.inputs.password.isValid
+            );
+        } else {
+            setFormData(
+                {
+                    ...formState.inputs,
+                    name: {
+                        value: '',
+                        isValid: false
+                    }
+                },
+                false
+            );
+        }
+        setIsLoginMode(prevMode => !prevMode);
+    };
 
 
 
