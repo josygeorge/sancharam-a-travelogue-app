@@ -1,5 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { useForm } from '../../shared/hooks/FormHook';
+import Card from '../../shared/components/UIElements/Card';
+import Input from '../../shared/components/FormElements/Input';
+import Button from '../../shared/components/FormElements/Button';
+import {
+    VALIDATOR_EMAIL,
+    VALIDATOR_MINLENGTH,
+    VALIDATOR_REQUIRE
+} from '../../shared/util/validators';
+import { AuthContext } from '../../shared/context/auth-context';
 import './Auth.css';
 
 const Auth = () => {
@@ -43,7 +52,11 @@ const Auth = () => {
         }
         setIsLoginMode(prevMode => !prevMode);
     };
-
+    const authSubmitHandler = event => {
+        event.preventDefault();
+        console.log(formState.inputs);
+        auth.login();
+    };
 
 
     return (
