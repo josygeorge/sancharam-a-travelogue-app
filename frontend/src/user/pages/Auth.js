@@ -7,10 +7,11 @@ import {
     VALIDATOR_EMAIL,
     VALIDATOR_MINLENGTH,
     VALIDATOR_REQUIRE
-} from '../../shared/util/validators';
-import { AuthContext } from '../../shared/context/auth-context';
+} from '../../utils/validators';
+import { AuthContext } from '../../shared/context/authContext';
 import './Auth.css';
-
+//
+//
 const Auth = () => {
     const auth = useContext(AuthContext);
     const [isLoginMode, setIsLoginMode] = useState(true);
