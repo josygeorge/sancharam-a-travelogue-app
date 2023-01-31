@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const { mongoose } = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const HttpError = require('./models/httpError');
@@ -42,9 +43,15 @@ app.use((error, req, res, next) => {
     res.json({ message: error.message || 'Unknown error occured!' });
 })
 
-var server = app.listen(8081, 'localhost', function () {
-    var host = server.address().address
-    var port = server.address().port
 
-    console.log("App listening at http://%s:%s", host, port)
-})
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+        var server = app.listen(8081, 'localhost', function () {
+            var host = server.address().address
+            var port = server.address().port
+
+            console.log("App listening at http://%s:%s", host, port)
+        })
+    })
+    .catch(err => console.log(err));
