@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import MainHeader from '../MainHeader/MainHeader';
 import NavLinks from '../NavLinks/NavLinks';
-/* import SideDrawer from './SideDrawer';
-import Backdrop from '../UIElements/Backdrop'; */
+import SideDrawer from '../SideDrawer/SideDrawer';
+import Backdrop from '../../UIElements/Backdrop/Backdrop';
 import './MainNavigation.css'
 
 //
