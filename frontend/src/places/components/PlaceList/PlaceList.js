@@ -2,6 +2,10 @@ import React from 'react'
 import Card from '../../../shared/components/UIElements/Card/Card';
 import Button from '../../../shared/components/FormElements/Button/Button';
 
+import './PlaceList.css';
+
+//
+//
 const PlaceList = (props) => {
     if (props.items.length === 0) {
         return (
