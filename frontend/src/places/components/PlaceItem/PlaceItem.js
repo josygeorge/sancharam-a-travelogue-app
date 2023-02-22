@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import Card from '../../../shared/components/UIElements/Card/Card';
 import Button from '../../../shared/components/FormElements/Button/Button';
 import { AuthContext } from '../../../shared/context/authContext'
+import Map from '../../../shared/components/UIElements/Map/Map';
 //
 //
 const PlaceItem = (props) => {
