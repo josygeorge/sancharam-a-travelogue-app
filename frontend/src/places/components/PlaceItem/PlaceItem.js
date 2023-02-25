@@ -4,6 +4,7 @@ import Button from '../../../shared/components/FormElements/Button/Button';
 import { AuthContext } from '../../../shared/context/authContext'
 import Map from '../../../shared/components/UIElements/Map/Map';
 import './PlaceItem.css'
+import Modal from '../../../shared/components/UIElements/Modal/Modal';
 //
 //
 const PlaceItem = (props) => {
