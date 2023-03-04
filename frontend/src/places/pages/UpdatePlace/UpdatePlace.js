@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from '../../../shared/hooks/FormHook';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../../utils/validators';
-
+import './styleForPlaceForm.css'
 
 const DUMMY_PLACES = [
     {
