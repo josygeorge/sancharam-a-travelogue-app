@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from '../../../shared/hooks/FormHook';
+import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../../utils/validators';
 
 
 const DUMMY_PLACES = [
