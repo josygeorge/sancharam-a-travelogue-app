@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from '../../../shared/hooks/FormHook';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../../utils/validators';
 import './styleForPlaceForm.css'
+import Card from '../../../shared/components/UIElements/Card/Card';
 
 const DUMMY_PLACES = [
     {
