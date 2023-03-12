@@ -3,6 +3,9 @@ import { useForm } from '../../../shared/hooks/FormHook';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../../utils/validators';
 import './styleForPlaceForm.css'
 import Card from '../../../shared/components/UIElements/Card/Card';
+import Button from '../../../shared/components/FormElements/Button/Button';
+import Input from '../../../shared/components/FormElements/Input/Input';
+import { useParams } from 'react-router-dom';
 
 const DUMMY_PLACES = [
     {
