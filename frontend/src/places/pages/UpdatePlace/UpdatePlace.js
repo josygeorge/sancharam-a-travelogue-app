@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useForm } from '../../../shared/hooks/FormHook';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../../utils/validators';
@@ -6,7 +6,7 @@ import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../../utils/validator
 import Card from '../../../shared/components/UIElements/Card/Card';
 import Button from '../../../shared/components/FormElements/Button/Button';
 import Input from '../../../shared/components/FormElements/Input/Input';
-import './styleForPlaceForm.css'
+import '../styleForPlaceForm.css'
 
 const DUMMY_PLACES = [
     {

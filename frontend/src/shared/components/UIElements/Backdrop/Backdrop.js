@@ -4,7 +4,7 @@ import './Backdrop.css'
 
 //
 //
-const Backdrop = () => {
+const Backdrop = (props) => {
     /* createPortal lets you render some children into a different part of the DOM. */
     return createPortal(
         <div className="backdrop" onClick={props.onClick}></div>,

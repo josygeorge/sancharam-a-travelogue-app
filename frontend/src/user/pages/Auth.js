@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import { useForm } from '../../shared/hooks/FormHook';
 import Card from '../../shared/components/UIElements/Card/Card';
-import Input from '../../shared/components/FormElements/Input';
-import Button from '../../shared/components/FormElements/Button';
+import Input from '../../shared/components/FormElements/Input/Input';
+import Button from '../../shared/components/FormElements/Button/Button';
 import {
     VALIDATOR_EMAIL,
     VALIDATOR_MINLENGTH,
