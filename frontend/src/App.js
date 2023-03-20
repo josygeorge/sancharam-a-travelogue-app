@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import { Navigate, Route, Router, Routes } from 'react-router-dom'
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import Users from './user/pages/Users';
 import UserPlaces from './places/pages/UserPlaces/UserPlaces';
 import NewPlace from './places/pages/NewPlace/NewPlace';
@@ -13,6 +13,7 @@ import { AuthContext } from './shared/context/authContext';
 //
 //
 const App = () => {
+  console.log('hi');
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   //The React useCallback Hook returns a memoized callback function.
@@ -32,7 +33,7 @@ const App = () => {
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/places/new" element={<NewPlace />} />
         <Route path="/places/:placeId" element={<UpdatePlace />} />
-        <Navigate to="/" replace />
+        {/* <Navigate to="/" replace /> */}
       </Routes>
     )
   } else {
@@ -41,7 +42,7 @@ const App = () => {
         <Route path="/" element={<Users />} />
         <Route path="/:userId/places" element={<UserPlaces />} />
         <Route path="/auth" element={<Auth />} />
-        <Navigate to="/auth" replace />
+        {/* <Navigate to="/auth" replace /> */}
       </Routes>
     )
   }
