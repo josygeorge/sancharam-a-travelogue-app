@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 
-import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import { Redirect, Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import Users from './user/pages/Users';
 import UserPlaces from './places/pages/UserPlaces/UserPlaces';
 import NewPlace from './places/pages/NewPlace/NewPlace';
@@ -13,7 +13,7 @@ import { AuthContext } from './shared/context/authContext';
 //
 //
 const App = () => {
-  console.log('hi');
+  //console.log('hi');
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   //The React useCallback Hook returns a memoized callback function.
@@ -28,29 +28,29 @@ const App = () => {
   let routes;
   if (isLoggedIn) {
     routes = (
-      <Routes>
-        <Route path="/" element={<Users />} />
-        <Route path="/:userId/places" element={<UserPlaces />} />
-        <Route path="/places/new" element={<NewPlace />} />
-        <Route path="/places/:placeId" element={<UpdatePlace />} />
-        {/* <Navigate to="/" replace /> */}
-      </Routes>
+      <Switch>
+        <Route path='/' exact><Users /></Route>
+        <Route path="/:userId/places" exact><UserPlaces /></Route>
+        <Route path="/places/new" exact><NewPlace /></Route>
+        <Route path="/places/:placeId"><UpdatePlace /></Route>
+        <Redirect to="/" />
+      </Switch>
     )
   } else {
     routes = (
-      <Routes>
-        <Route path="/" element={<Users />} />
-        <Route path="/:userId/places" element={<UserPlaces />} />
-        <Route path="/auth" element={<Auth />} />
-        {/* <Navigate to="/auth" replace /> */}
-      </Routes>
+      <Switch>
+        <Route path='/' exact><Users /></Route>
+        <Route path="/:userId/places" exact><UserPlaces /></Route>
+        <Route path="/auth"><Auth /></Route>
+        <Redirect to="/auth" />
+      </Switch>
     )
   }
   //
   //
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, login, logout }}
+      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>
         <MainNavigation />
