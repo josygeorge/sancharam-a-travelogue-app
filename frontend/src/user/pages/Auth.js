@@ -105,7 +105,7 @@ const Auth = () => {
                 SWITCH TO {isLoginMode ? 'SIGNUP' : 'LOGIN'}
             </Button>
         </Card>
-    )
+    );
 }
 
-export default Auth
+export default Auth;
