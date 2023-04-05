@@ -4,8 +4,9 @@ import MainHeader from '../MainHeader/MainHeader';
 import NavLinks from '../NavLinks/NavLinks';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import Backdrop from '../../UIElements/Backdrop/Backdrop';
-import './MainNavigation.css'
 
+import './MainNavigation.css'
+//
 //
 //
 const MainNavigation = () => {
@@ -16,7 +17,6 @@ const MainNavigation = () => {
     const closeDrawerHandler = () => {
         setDrawerIsOpen(false);
     };
-
     //
     //
     return (
@@ -45,7 +45,7 @@ const MainNavigation = () => {
                 </nav>
             </MainHeader>
         </React.Fragment>
-    )
+    );
 }
 
 export default MainNavigation;
