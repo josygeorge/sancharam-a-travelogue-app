@@ -8,7 +8,6 @@ import UpdatePlace from './places/pages/UpdatePlace/UpdatePlace';
 import Auth from './user/pages/Auth';
 import MainNavigation from './shared/components/Navigation/MainNavigation/MainNavigation';
 import { AuthContext } from './shared/context/authContext';
-
 //
 //
 //
@@ -50,7 +49,7 @@ const App = () => {
   //
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
+      value={{ isLoggedIn, login, logout }}
     >
       <Router>
         <MainNavigation />
@@ -61,4 +60,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;
