@@ -3,8 +3,10 @@ import Card from '../../../shared/components/UIElements/Card/Card';
 import Button from '../../../shared/components/FormElements/Button/Button';
 import { AuthContext } from '../../../shared/context/authContext'
 import Map from '../../../shared/components/UIElements/Map/Map';
-import './PlaceItem.css'
 import Modal from '../../../shared/components/UIElements/Modal/Modal';
+
+import './PlaceItem.css'
+//
 //
 //
 const PlaceItem = (props) => {
@@ -58,8 +60,7 @@ const PlaceItem = (props) => {
                 }
             >
                 <p>
-                    Do you want to proceed and delete this place? Please note that it
-                    can't be undone thereafter.
+                    Do you want to proceed and delete this place?
                 </p>
             </Modal>
             <li className="place-item">
@@ -89,7 +90,7 @@ const PlaceItem = (props) => {
                 </Card>
             </li>
         </React.Fragment>
-    )
+    );
 }
 
-export default PlaceItem
+export default PlaceItem;
