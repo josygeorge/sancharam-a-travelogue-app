@@ -1,10 +1,10 @@
 import React from 'react'
 import Card from '../../../shared/components/UIElements/Card/Card';
 import Button from '../../../shared/components/FormElements/Button/Button';
-
-import './PlaceList.css';
 import PlaceItem from '../PlaceItem/PlaceItem';
 
+import './PlaceList.css';
+//
 //
 //
 const PlaceList = (props) => {
@@ -18,6 +18,7 @@ const PlaceList = (props) => {
             </div>
         );
     }
+    //
     return (
         <ul className="place-list">
             {props.items.map(place => (
@@ -33,7 +34,7 @@ const PlaceList = (props) => {
                 />
             ))}
         </ul>
-    )
+    );
 }
 
-export default PlaceList
+export default PlaceList;
