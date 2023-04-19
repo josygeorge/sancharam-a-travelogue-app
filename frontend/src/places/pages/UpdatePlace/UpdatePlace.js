@@ -7,7 +7,8 @@ import Card from '../../../shared/components/UIElements/Card/Card';
 import Button from '../../../shared/components/FormElements/Button/Button';
 import Input from '../../../shared/components/FormElements/Input/Input';
 import '../styleForPlaceForm.css'
-
+//
+//
 const DUMMY_PLACES = [
     {
         id: 'p1',
@@ -56,6 +57,7 @@ const UpdatePlace = () => {
         },
         false
     );
+    //
     const identifiedPlace = DUMMY_PLACES.find(p => p.id === placeId);
     useEffect(() => {
         if (identifiedPlace) {
@@ -75,7 +77,7 @@ const UpdatePlace = () => {
         }
         setIsLoading(false);
     }, [setFormData, identifiedPlace]);
-
+    //
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
         console.log(formState.inputs);
@@ -126,7 +128,7 @@ const UpdatePlace = () => {
                 UPDATE PLACE
             </Button>
         </form>
-    )
+    );
 }
 
-export default UpdatePlace
+export default UpdatePlace;
