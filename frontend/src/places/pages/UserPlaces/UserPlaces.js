@@ -41,7 +41,7 @@ const UserPlaces = () => {
     //
     return (
         <PlaceList items={loadedPlaces} />
-    )
+    );
 }
 
-export default UserPlaces
+export default UserPlaces;
