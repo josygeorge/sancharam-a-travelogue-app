@@ -1,8 +1,11 @@
 import React, { useEffect, useReducer } from 'react'
 
-import './Input.css'
 import { validate } from '../../../../utils/validators';
 
+import './Input.css'
+
+//
+//
 const inputReducer = (state, action) => {
     switch (action.type) {
         case 'CHANGE':
@@ -80,7 +83,7 @@ const Input = (props) => {
             {element}
             {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
         </div>
-    )
+    );
 }
 
-export default Input
+export default Input;
