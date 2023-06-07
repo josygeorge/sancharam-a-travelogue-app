@@ -5,6 +5,7 @@ const {
     createPlace,
     updatePlace,
     deletePlace } = require('../controllers/places');
+
 const router = express.Router();
 
 router.get('/:pid', getPlaceById);
