@@ -5,7 +5,7 @@ const { getUsers, signup, login } = require('../controllers/users');
 
 const router = express.Router();
 router.get('/', getUsers);
-
+// signup - check using validator
 router.post(
     '/signup',
     [
