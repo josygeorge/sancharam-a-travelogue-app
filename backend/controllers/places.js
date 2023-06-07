@@ -74,15 +74,24 @@ const createPlace = (req, res, next) => {
     DUMMYPLACES.push(newPlace); // unshift to add in the beginning
     res.status(201).json({ place: newPlace });
 }
-/* 
+
 const updatePlace = (req, res, next) => {
     const { title, description } = req.body;
     const placeID = req.params.pid;
 
+    const updatedPlace = { ...DUMMYPLACES.find(p => p.id === placeID) };
+    const placeIndex = DUMMYPLACES.findIndex(p => p.id === placeID);
+    updatedPlace.title = title;
+    updatedPlace.description = description;
+
+    DUMMYPLACES[placeIndex] = updatedPlace;
+
+    res.status(200).json({ place: updatedPlace });
+
 }
 const deletePlace = (req, res, next) => {
 
-} */
+}
 
 
 
