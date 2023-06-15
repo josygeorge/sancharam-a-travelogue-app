@@ -8,10 +8,11 @@ const {
     deletePlace } = require('../controllers/places');
 
 const router = express.Router();
-
+// route - get place by id - all users
 router.get('/:pid', getPlaceById);
+// get place in a particular user
 router.get('/user/:uid', getPlaceByUserId);
-// place creation route
+// route for place creation 
 router.post(
     '/',
     [
