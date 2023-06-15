@@ -16,7 +16,7 @@ router.post(
     '/',
     [
         check('title').not().isEmpty(),
-        check('description').isLength({ min: 5 }),
+        check('description').isLength({ min: 10 }),
         check('address').not().isEmpty()
     ],
     createPlace
