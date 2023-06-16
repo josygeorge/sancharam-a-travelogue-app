@@ -22,7 +22,11 @@ router.post(
     ],
     createPlace
 );
-router.patch('/:pid', updatePlace);
+router.patch(
+    '/:pid',
+    [check('description').isLength({ min: 10 })],
+    updatePlace
+);
 router.delete('/:pid', deletePlace);
 
 module.exports = router;
