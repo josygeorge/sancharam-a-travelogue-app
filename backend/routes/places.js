@@ -22,6 +22,7 @@ router.post(
     ],
     createPlace
 );
+// route - update place
 router.patch(
     '/:pid',
     [
@@ -30,6 +31,7 @@ router.patch(
     ],
     updatePlace
 );
+// route - delete place
 router.delete('/:pid', deletePlace);
 
 module.exports = router;
