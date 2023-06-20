@@ -24,7 +24,10 @@ router.post(
 );
 router.patch(
     '/:pid',
-    [check('description').isLength({ min: 10 })],
+    [
+        check('title').not().isEmpty(),
+        check('description').isLength({ min: 10 })
+    ],
     updatePlace
 );
 router.delete('/:pid', deletePlace);
