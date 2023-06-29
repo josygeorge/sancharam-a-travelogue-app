@@ -13,6 +13,8 @@ const userSchema = new Schema({
 });
 
 // the unique validator will check for duplicate database entries and report them just like any other validation error.
+userSchema.plugin(uniqueValidator);
+
 /* 
 Example:
 var user = new User({ username: 'JohnSmith', email: 'john.smith@gmail.com', password: 'j0hnNYb0i' });
