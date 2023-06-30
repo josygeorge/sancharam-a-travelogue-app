@@ -1,5 +1,6 @@
 const uuid = require('uuid/v4');
 const { validationResult } = require('express-validator');
+const User = require('../models/userSchema')
 
 const HttpError = require('../models/http-error');
 
@@ -12,8 +13,19 @@ const DUMMYUSERS = [
     }
 ];
 
-const getUsers = (req, res, next) => {
-    res.json({ users: DUMMYUSERS });
+const getUsers = async (req, res, next) => {
+    let users;
+    try {
+        users = await User.find({}, '-password');
+    } catch (error) {
+        const fetchError = new HttpError("Failed! Try again later.", 500)
+        return next(fetchError);
+    }
+    res.json({
+        users: users.map(user =>
+            user.toObject({ getters: true })
+        )
+    });
 };
 
 const signup = (req, res, next) => {
