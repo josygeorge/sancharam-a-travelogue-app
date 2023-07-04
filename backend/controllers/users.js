@@ -12,7 +12,7 @@ const DUMMYUSERS = [
         password: 'testers'
     }
 ];
-
+// get users
 const getUsers = async (req, res, next) => {
     let users;
     try {
@@ -28,18 +28,28 @@ const getUsers = async (req, res, next) => {
     });
 };
 
-const signup = (req, res, next) => {
+const signup = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError('Invalid inputs passed, please check your data.', 422);
+        const validationError = new HttpError('Invalid inputs passed, please check your data.', 422);
+        return next(validationError);
     }
     const { name, email, password } = req.body;
 
-    const hasUser = DUMMYUSERS.find(u => u.email === email);
-    if (hasUser) {
-        throw new HttpError('Could not create user, email already exists.', 422);
+    // checking if user exists from database
+    let hasUser;
+    try {
+        hasUser = await User.findOne({ email: email })
+    } catch (error) {
+        const fetchError = new HttpError("Failed! Try again later.", 500)
+        return next(fetchError);
     }
-
+    // if user exists
+    if (hasUser) {
+        const userExistsError = new HttpError('User exists! email already exists. Try login.', 422);
+        return next(userExistsError);
+    }
+    // if new User - create a new one
     const createdUser = {
         id: uuid(),
         name, // name: name
@@ -52,6 +62,8 @@ const signup = (req, res, next) => {
     res.status(201).json({ user: createdUser });
 };
 
+
+// login
 const login = (req, res, next) => {
     const { email, password } = req.body;
 
