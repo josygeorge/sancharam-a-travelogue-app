@@ -60,9 +60,10 @@ const signup = async (req, res, next) => {
 
     // create code
     try {
-
+        await createdUser.save();
     } catch (error) {
-
+        const createError = new HttpError("Failed! Try again later.", 500)
+        return next(createError);
     }
 
 
