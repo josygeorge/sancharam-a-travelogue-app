@@ -50,14 +50,21 @@ const signup = async (req, res, next) => {
         return next(userExistsError);
     }
     // if new User - create a new one
-    const createdUser = {
-        id: uuid(),
+    const createdUser = new User({
         name, // name: name
         email,
-        password
-    };
+        password,
+        image: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1331&q=80',
+        places: []
+    });
 
-    DUMMYUSERS.push(createdUser);
+    // create code
+    try {
+
+    } catch (error) {
+
+    }
+
 
     res.status(201).json({ user: createdUser });
 };
