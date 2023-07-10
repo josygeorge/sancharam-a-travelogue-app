@@ -38,14 +38,16 @@ const getUsers = async (req, res, next) => {
 /* **** signup logic **** */
 //
 const signup = async (req, res, next) => {
+
+    // checking validation error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const validationError = new HttpError('Invalid inputs passed, please check your data.', 422);
         return next(validationError);
     }
     const { name, email, password } = req.body;
-
-    // checking if user exists from database
+    // --------------
+    // database checking if user exists 
     let hasUser;
     try {
         hasUser = await User.findOne({ email: email })
@@ -53,7 +55,8 @@ const signup = async (req, res, next) => {
         const fetchError = new HttpError("Failed! Try again later.", 500)
         return next(fetchError);
     }
-    // if user exists
+    //---------
+    // if user exists then error
     if (hasUser) {
         const userExistsError = new HttpError('User exists! email already exists. Try login.', 422);
         return next(userExistsError);
@@ -88,12 +91,20 @@ const signup = async (req, res, next) => {
 //
 const login = (req, res, next) => {
     const { email, password } = req.body;
-
-    const identifiedUser = DUMMYUSERS.find(u => u.email === email);
-    if (!identifiedUser || identifiedUser.password !== password) {
-        throw new HttpError('Could not identify user, credentials seem to be wrong.', 401);
+    let identifiedUser;
+    // database fetching 
+    try {
+        identifiedUser = User.findOne({ email: email });
+    } catch (error) {
+        const fetchError = new HttpError("Fetch Failed! Try again later.", 500)
+        return next(fetchError);
     }
-
+    // login error
+    if (!identifiedUser || identifiedUser.password !== password) {
+        const loginError = new HttpError('Credentials seem to be wrong.', 401);
+        return next(loginError)
+    }
+    // sending success to browser
     res.json({ message: 'Logged in!' });
 };
 
