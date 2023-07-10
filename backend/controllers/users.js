@@ -12,7 +12,11 @@ const DUMMYUSERS = [
         password: 'testers'
     }
 ];
+//
+//
+//
 // get users
+//
 const getUsers = async (req, res, next) => {
     let users;
     try {
@@ -21,13 +25,18 @@ const getUsers = async (req, res, next) => {
         const fetchError = new HttpError("Failed! Try again later.", 500)
         return next(fetchError);
     }
+    // sending response to the browser
     res.json({
         users: users.map(user =>
             user.toObject({ getters: true })
         )
     });
 };
-
+//
+//
+//
+/* **** signup logic **** */
+//
 const signup = async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -65,13 +74,18 @@ const signup = async (req, res, next) => {
         const createError = new HttpError("Failed! Try again later.", 500)
         return next(createError);
     }
-
-
-    res.status(201).json({ user: createdUser });
+    // sending response to the browser
+    res.status(201).json({
+        user: createdUser.toObject({
+            getters: true
+        })
+    });
 };
-
-
-// login
+//
+//
+//
+/* **** login code **** */
+//
 const login = (req, res, next) => {
     const { email, password } = req.body;
 
