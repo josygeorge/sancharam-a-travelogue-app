@@ -91,16 +91,16 @@ const signup = async (req, res, next) => {
 //
 const login = (req, res, next) => {
     const { email, password } = req.body;
-    let identifiedUser;
+    let userExists;
     // database fetching 
     try {
-        identifiedUser = User.findOne({ email: email });
+        userExists = User.findOne({ email: email });
     } catch (error) {
         const fetchError = new HttpError("Fetch Failed! Try again later.", 500)
         return next(fetchError);
     }
     // login error
-    if (!identifiedUser || identifiedUser.password !== password) {
+    if (!userExists || userExists.password !== password) {
         const loginError = new HttpError('Credentials seem to be wrong.', 401);
         return next(loginError)
     }
