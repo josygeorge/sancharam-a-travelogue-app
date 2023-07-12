@@ -4,14 +4,6 @@ const User = require('../models/userSchema')
 
 const HttpError = require('../models/http-error');
 
-const DUMMYUSERS = [
-    {
-        id: 'u1',
-        name: 'John Doe',
-        email: 'test@test.com',
-        password: 'testers'
-    }
-];
 //
 //
 //
