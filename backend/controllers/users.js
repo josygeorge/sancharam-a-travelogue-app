@@ -1,4 +1,4 @@
-const uuid = require('uuid/v4');
+
 const { validationResult } = require('express-validator');
 const User = require('../models/userSchema')
 
