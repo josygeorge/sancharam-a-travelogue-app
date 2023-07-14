@@ -26,6 +26,7 @@ const getUsers = async (req, res, next) => {
 };
 //
 //
+//The next() function is a function in the Express router that, when invoked, executes the next middleware in the middleware stack. If the current middleware function does not end the request-response cycle, it must call next() to pass control to the next middleware function.
 //
 /* **** signup logic **** */
 //
