@@ -1,3 +1,5 @@
+const Place = require('../models/placeSchema')
+
 
 const HttpError = require('../models/httpError');
 const { v4: uuid } = require('uuid');
@@ -28,18 +30,27 @@ const DUMMYPLACES = [
     },
 
 ]
+// 
 
-const getPlaceById = (req, res, next) => {
+// get place by ID
+//
+const getPlaceById = async (req, res, next) => {
     const placeId = req.params.pid;
-    const place = DUMMYPLACES.find(p => {
-        return p.id === placeId;
-    });
+
+    let place;
+    try {
+        place = await Place.findById(placeId);
+    } catch (err) {
+        const fetchError = new HttpError('Failed! Could not find a place.', 500);
+        return next(fetchError);
+    }
+
     if (!place) {
-        const error = new HttpError('Place not found for the search!', 404);
-        throw error;
+        const notFoundError = new HttpError('Place not found for the search!', 404);
+        return next(notFoundError);
     }
     res.json({
-        place,
+        place: place.toObject({ getters: true })
     });
 };
 
