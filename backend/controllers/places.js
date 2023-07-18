@@ -1,4 +1,5 @@
-const Place = require('../models/placeSchema')
+const Place = require('../models/placeSchema');
+const User = require('../models/userSchema')
 
 
 const HttpError = require('../models/httpError');
@@ -32,38 +33,53 @@ const DUMMYPLACES = [
 ]
 // 
 
+//
 // get place by ID
 //
 const getPlaceById = async (req, res, next) => {
     const placeId = req.params.pid;
-
+    // fetching place
     let place;
     try {
         place = await Place.findById(placeId);
     } catch (err) {
-        const fetchError = new HttpError('Failed! Could not find a place.', 500);
+        const fetchError = new HttpError('Failed! Could not find a place. Try again.', 500);
         return next(fetchError);
     }
 
     if (!place) {
-        const notFoundError = new HttpError('Place not found for the search!', 404);
+        const notFoundError = new HttpError('Place not found!', 404);
         return next(notFoundError);
     }
+    // sending response to the browser
     res.json({
         place: place.toObject({ getters: true })
     });
 };
+//
 
-const getPlaceByUserId = (req, res, next) => {
+//
+// get places by user ID
+//
+const getPlacesByUserId = async (req, res, next) => {
     const userId = req.params.uid;
-    const place = DUMMYPLACES.find(p => {
-        return p.creator === userId;
-    });
-    if (!place) {
-        return next(new HttpError('Place not found for the user!', 404));
+    // fetching places by user Id
+    let userPlaces;
+    try {
+        userPlaces = await User.findById(userId).populate('places');
+    } catch (error) {
+        const fetchError = new HttpError('Failed! Could not fetch. Try again.', 500);
+        return next(fetchError);
     }
+
+    // Not found places for the user -ERROR
+    if (!userPlaces || userPlaces.places.length === 0) {
+        const notFoundError = new HttpError('Place not found for the user!', 404);
+        return next(notFoundError);
+    }
+    // sending response to the browser - bylooping places for the user
     res.json({
-        place,
+        places: userPlaces.places.map(place => place.toObject({ getters: true }))
     });
 };
 
@@ -112,7 +128,7 @@ const deletePlace = (req, res, next) => {
 
 
 exports.getPlaceById = getPlaceById; // => exports.anyname = getPlaceById;
-exports.getPlaceByUserId = getPlaceByUserId;
+exports.getPlacesByUserId = getPlacesByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
 exports.deletePlace = deletePlace; 
