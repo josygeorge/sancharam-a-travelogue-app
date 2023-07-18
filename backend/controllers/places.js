@@ -1,8 +1,12 @@
+const { validationResult } = require('express-validator')
+const getCoordsForAddress = require('../util/location')
 const Place = require('../models/placeSchema');
 const User = require('../models/userSchema')
 
 
 const HttpError = require('../models/httpError');
+
+
 const { v4: uuid } = require('uuid');
 
 // dummy data
@@ -82,8 +86,18 @@ const getPlacesByUserId = async (req, res, next) => {
         places: userPlaces.places.map(place => place.toObject({ getters: true }))
     });
 };
+//
 
+//
+// Code - create place
+//
 const createPlace = (req, res, next) => {
+    // checking validation error
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const validationError = new HttpError('Invalid inputs passed, please check your data.', 422);
+        return next(validationError);
+    }
     const {
         title,
         description,
