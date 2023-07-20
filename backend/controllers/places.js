@@ -1,8 +1,9 @@
 const { validationResult } = require('express-validator')
+const mongoose = require('mongoose');
+
 const getCoordsForAddress = require('../util/location')
 const Place = require('../models/placeSchema');
 const User = require('../models/userSchema')
-
 
 const HttpError = require('../models/httpError');
 
@@ -91,7 +92,7 @@ const getPlacesByUserId = async (req, res, next) => {
 //
 // Code - create place
 //
-const createPlace = (req, res, next) => {
+const createPlace = async (req, res, next) => {
     // checking validation error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -120,7 +121,32 @@ const createPlace = (req, res, next) => {
         image: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Toronto_-_ON_-_Toronto_Harbourfront7.jpg',
         creator
     });
-    // fetching user
+    // fetching user to save the new place attached with the user
+    let user;
+    try {
+        user = await User.findById(creator);
+    } catch (error) {
+        const fetchError = new HttpError('Failed, Creating place. Try again.', 500);
+        return next(fetchError);
+    }
+    // No user
+    if (!user) {
+        const notFoundError = new HttpError('Could not find the user with the provided id', 404);
+        return next(notFoundError);
+    }
+
+    // SAVE code
+    try {
+        // mongoose session 
+        const startSession = await mongoose.startSession();
+        startSession.startTransaction();
+        await newPlace.save({ session: startSession });
+        user.places.push(newPlace);
+        await user.save({ session: startSession });
+        await startSession.commitTransaction();
+    } catch (error) {
+
+    }
 
     DUMMYPLACES.push(newPlace); // unshift to add in the beginning
     res.status(201).json({ place: newPlace });
