@@ -145,10 +145,13 @@ const createPlace = async (req, res, next) => {
         await user.save({ session: startSession });
         await startSession.commitTransaction();
     } catch (error) {
-
+        const creationError = new HttpError(
+            'Creating place failed, try again.',
+            500
+        );
+        return next(creationError);
     }
 
-    DUMMYPLACES.push(newPlace); // unshift to add in the beginning
     res.status(201).json({ place: newPlace });
 }
 //
