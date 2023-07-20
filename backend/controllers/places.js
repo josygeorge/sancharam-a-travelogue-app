@@ -101,21 +101,34 @@ const createPlace = (req, res, next) => {
     const {
         title,
         description,
-        coordinates,
         address,
         creator } = req.body;
-    const newPlace = {
-        id: uuid(),
+
+    // get coordinates by passing address to the function
+    let coordinates;
+    try {
+        coordinates = getCoordsForAddress(address)
+    } catch (error) {
+        return next(error); // Error in coordinate fecthing
+    }
+    // new place object
+    const newPlace = new Place({
         title,
         description,
         location: coordinates,
         address,
+        image: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Toronto_-_ON_-_Toronto_Harbourfront7.jpg',
         creator
-    };
+    });
+
     DUMMYPLACES.push(newPlace); // unshift to add in the beginning
     res.status(201).json({ place: newPlace });
 }
+//
 
+//
+//
+//
 const updatePlace = (req, res, next) => {
     const { title, description } = req.body;
     const placeID = req.params.pid;
