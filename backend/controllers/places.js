@@ -160,6 +160,13 @@ const createPlace = async (req, res, next) => {
 //
 //
 const updatePlace = (req, res, next) => {
+    // checking validation error
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const validationError = new HttpError('Invalid inputs passed, please check your data.', 422);
+        return next(validationError);
+    }
+    //
     const { title, description } = req.body;
     const placeID = req.params.pid;
 
