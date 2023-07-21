@@ -120,6 +120,7 @@ const createPlace = (req, res, next) => {
         image: 'https://upload.wikimedia.org/wikipedia/commons/9/96/Toronto_-_ON_-_Toronto_Harbourfront7.jpg',
         creator
     });
+    // fetching user
 
     DUMMYPLACES.push(newPlace); // unshift to add in the beginning
     res.status(201).json({ place: newPlace });

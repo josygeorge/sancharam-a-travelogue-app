@@ -1,15 +1,26 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
+const dotenv = require('dotenv');
 const HttpError = require('./models/httpError');
 
 // Routes
 const usersRoutes = require('./routes/users');
 const placesRoutes = require('./routes/places');
 
+dotenv.config();
+/* -------------------
+ Create express app
+---------------------- */
 const app = express();
 
-// Body Parser middleware to parse any incoming req
+/* ----------------
+ Apply middleware/s
+------------------- */
+// 1. Cors function 
+app.use(cors())
+
+// 2. Body Parser middleware to parse any incoming req
 app.use(bodyParser.json());
 
 // Routes middleware
