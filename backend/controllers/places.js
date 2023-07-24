@@ -74,7 +74,7 @@ const createPlace = (req, res, next) => {
     DUMMYPLACES.push(newPlace); // unshift to add in the beginning
     res.status(201).json({ place: newPlace });
 }
-/* const updatePlace = (req, res, next) => {
+/* 
 const updatePlace = (req, res, next) => {
     const { title, description } = req.body;
     const placeID = req.params.pid;
