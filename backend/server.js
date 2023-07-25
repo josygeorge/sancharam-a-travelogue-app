@@ -1,21 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const HttpError = require('./models/httpError');
+
 // Routes
 const usersRoutes = require('./routes/users');
 const placesRoutes = require('./routes/places');
 
 const app = express();
 
+// Body Parser middleware to parse any incoming req
+app.use(bodyParser.json());
+
 // Routes middleware
 app.use('/api/users', usersRoutes);
 app.use('/api/places', placesRoutes);
 
-app.use((error,req,res,next) => {
-if(res.headerSent) {
-    return next(error);
-}
-res.status(error.code || 500);
+// handling errors for unsupported routes
+app.use((req, res, next) => {
+    const error = new HttpError('Could not find the route!', 404);
+    throw error;
+})
+
+// Error middleware
+app.use((error, req, res, next) => {
+    if (res.headerSent) {
+        return next(error);
+    }
+    res.status(error.code || 500);
+    res.json({ message: error.message || 'Unknown error occured!' });
 })
 
 var server = app.listen(8081, 'localhost', function () {
