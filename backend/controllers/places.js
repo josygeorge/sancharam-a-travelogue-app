@@ -82,7 +82,7 @@ const getPlacesByUserId = async (req, res, next) => {
         const notFoundError = new HttpError('Place not found for the user!', 404);
         return next(notFoundError);
     }
-    // sending response to the browser - bylooping places for the user
+    // sending response to the browser - by looping places for the user
     res.json({
         places: userPlaces.places.map(place => place.toObject({ getters: true }))
     });
@@ -151,15 +151,15 @@ const createPlace = async (req, res, next) => {
         );
         return next(creationError);
     }
-
+    // sending response to the browser
     res.status(201).json({ place: newPlace });
 }
 //
 
 //
+// Update Place
 //
-//
-const updatePlace = (req, res, next) => {
+const updatePlace = async (req, res, next) => {
     // checking validation error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -169,17 +169,37 @@ const updatePlace = (req, res, next) => {
     //
     const { title, description } = req.body;
     const placeID = req.params.pid;
-
-    const updatedPlace = { ...DUMMYPLACES.find(p => p.id === placeID) };
-    const placeIndex = DUMMYPLACES.findIndex(p => p.id === placeID);
-    updatedPlace.title = title;
-    updatedPlace.description = description;
-
-    DUMMYPLACES[placeIndex] = updatedPlace;
-
-    res.status(200).json({ place: updatedPlace });
+    //
+    let place;
+    // fetching the document to make the update on it's field
+    try {
+        place = await Place.findById(placeID)
+    } catch (error) {
+        const fetchError = new HttpError('Failed, Updating place. Try again.', 500);
+        return next(fetchError);
+    }
+    // assigning values
+    place.title = title;
+    place.description = description;
+    // SAVE - UPDATE the document
+    try {
+        await place.save();
+    } catch (error) {
+        const updationError = new HttpError(
+            'Updation of the place failed, try again.',
+            500
+        );
+        return next(updationError);
+    }
+    // sending response to the browser
+    res.status(200).json({ place: place.toObject({ getters: true }) });
 
 }
+//
+
+//
+// Delete the place
+//
 const deletePlace = (req, res, next) => {
     const placeID = req.params.pid;
     if (!DUMMYPLACES.find(p => p.id === placeID)) {
