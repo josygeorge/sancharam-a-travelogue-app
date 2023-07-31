@@ -231,10 +231,9 @@ const deletePlace = async (req, res, next) => {
         );
         return next(deletionError);
     }
-
+    // sending response to the browser
     res.status(200).json({ message: 'Place Deleted.' });
 }
-
 
 
 exports.getPlaceById = getPlaceById; // => exports.anyname = getPlaceById;
