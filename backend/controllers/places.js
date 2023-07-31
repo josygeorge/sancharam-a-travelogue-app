@@ -215,12 +215,23 @@ const deletePlace = async (req, res, next) => {
         const notFoundError = new HttpError('Could not find the place', 404);
         return next(notFoundError);
     }
-
-
-    if (!DUMMYPLACES.find(p => p.id === placeID)) {
-        throw new HttpError('Could not find a place for that id.', 404);
+    // deletion logic
+    try {
+        // mongoose session 
+        const startSession = await mongoose.startSession();
+        startSession.startTransaction();
+        await place.remove({ session: startSession });
+        place.creator.places.pull(place);
+        await place.creator.save({ session: startSession });
+        await startSession.commitTransaction();
+    } catch (error) {
+        const deletionError = new HttpError(
+            'Deleting place failed, try again.',
+            500
+        );
+        return next(deletionError);
     }
-    DUMMYPLACES = DUMMYPLACES.filter(p => p.id !== placeID);
+
     res.status(200).json({ message: 'Place Deleted.' });
 }
 
