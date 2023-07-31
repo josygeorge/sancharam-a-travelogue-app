@@ -236,7 +236,8 @@ const deletePlace = async (req, res, next) => {
 }
 
 
-exports.getPlaceById = getPlaceById; // => exports.anyname = getPlaceById;
+exports.getPlaceById = getPlaceById;
+// => exports.anyname = getPlaceById;
 exports.getPlacesByUserId = getPlacesByUserId;
 exports.createPlace = createPlace;
 exports.updatePlace = updatePlace;
