@@ -200,8 +200,23 @@ const updatePlace = async (req, res, next) => {
 //
 // Delete the place
 //
-const deletePlace = (req, res, next) => {
+const deletePlace = async (req, res, next) => {
     const placeID = req.params.pid;
+    let place;
+    // fetching the document
+    try {
+        place = await Place.findById(placeID).populate('creator')
+    } catch (error) {
+        const fetchError = new HttpError('Fetch Failed, Deleting place. Try again.', 500);
+        return next(fetchError);
+    }
+    // not found
+    if (!place) {
+        const notFoundError = new HttpError('Could not find the place', 404);
+        return next(notFoundError);
+    }
+
+
     if (!DUMMYPLACES.find(p => p.id === placeID)) {
         throw new HttpError('Could not find a place for that id.', 404);
     }
